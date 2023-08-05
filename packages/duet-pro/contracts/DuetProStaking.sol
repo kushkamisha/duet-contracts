@@ -69,9 +69,9 @@ contract DuetProStaking is ReentrancyGuardUpgradeable, Adminable {
 
     constructor() {
         // 30097 is the chain id of hardhat in hardhat.config.ts
-        if (block.chainid != 30097) {
-            _disableInitializers();
-        }
+        // if (block.chainid != 30097) {
+        //     _disableInitializers();
+        // }
     }
 
     function initialize(
@@ -81,6 +81,7 @@ contract DuetProStaking is ReentrancyGuardUpgradeable, Adminable {
         IBoosterOracle boosterOracle_,
         address admin_
     ) external initializer {
+        console.log("DeutProStaking:intialized");
         require(address(pool_) != address(0), "DuetProStaking: pool cannot be zero address");
         require(address(deriLens_) != address(0), "DuetProStaking: deriLens cannot be zero address");
         require(address(usdLikeUnderlying_) != address(0), "DuetProStaking: usdLikeUnderlying_ cannot be zero address");

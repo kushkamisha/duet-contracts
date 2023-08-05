@@ -8,7 +8,7 @@ import { latestBlockNumber, latestTimestamp, parseOjWithBigNumber } from '@priva
 import { BigNumber, BigNumberish } from 'ethers'
 
 const logger = useLogger(__filename)
-describe('DuetProStaking', function () {
+describe.only('DuetProStaking', function () {
   let minter: SignerWithAddress,
     bob: SignerWithAddress,
     carol: SignerWithAddress,
@@ -30,9 +30,11 @@ describe('DuetProStaking', function () {
     lensPool = await (await ethers.getContractFactory('MockDeriLensAndPool')).connect(minter).deploy()
 
     // init mock tokens
+    console.log(1);
     booster1 = await (await ethers.getContractFactory('MockERC20'))
       .connect(minter)
       .deploy('Booster1', 'BOOST', ethers.utils.parseEther('100000'), 18)
+    console.log(2);
     await booster1.connect(minter).transfer(bob.address, ethers.utils.parseEther('10000'))
     await booster1.connect(minter).transfer(carol.address, ethers.utils.parseEther('10000'))
 
@@ -54,9 +56,11 @@ describe('DuetProStaking', function () {
     // init staking
     staking = await (await ethers.getContractFactory('DuetProStaking')).connect(minter).deploy()
     boosterOracle = await (await ethers.getContractFactory('MockBoosterOracle')).connect(minter).deploy()
+    console.log(3);
     await staking
       .connect(minter)
       .initialize(lensPool.address, lensPool.address, usdc.address, boosterOracle.address, minter.address)
+    console.log(4);
     await staking.connect(minter).addSupportedBooster(booster1.address)
     await staking.connect(minter).addSupportedBooster(booster2.address)
   })

@@ -28,7 +28,7 @@ import { readFile } from 'fs/promises'
 import * as tdly from '@tenderly/hardhat-tenderly'
 dotenv.config()
 
-tdly.setup({ automaticVerifications: true })
+tdly.setup({ automaticVerifications: false })
 
 const logger = useLogger(__filename)
 // https://hardhat.org/guides/create-task.html
@@ -72,12 +72,15 @@ const config: HardhatUserConfig = {
               url: process.env.FORK_URL!,
               blockNumber: parseInt(process.env.FORK_BLOCK_NUMBER!),
             },
-            accounts: [
-              {
-                privateKey: process.env.FORK_KEY!,
-                balance: ethers.utils.parseEther('1000').toString(),
-              },
-            ],
+            accounts: {
+              mnemonic: 'test test test test test test test test test test test junk',
+            }
+            // accounts: [
+            //   {
+            //     privateKey: process.env.FORK_KEY!,
+            //     balance: ethers.utils.parseEther('1000').toString(),
+            //   },
+            // ],
           }
         : {}),
     },
